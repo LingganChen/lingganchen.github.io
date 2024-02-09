@@ -3,22 +3,47 @@ body {
     margin-left: 0;
     margin-right: 0;
 }
-
+main{
+    background-color: hsla(60, 8%, 95%, 0.965);
+    margin-bottom: -5px;
+    height: 100vh;
+}
 .header {
     display:block;
-    justify-content: left;
+    justify-content:left;
     border: none;
     height:40px;
+    z-index: 1000;
+    
 }
+
 .container{
-    height: 900px;
+    height: 100vh;
     width:auto;
-    background-color: hsla(60, 8%, 95%, 0.965);
+    display: inline-block;
 }
+
+.right{
+    margin-left: 450px;
+    margin-top: 70px;
+    height: max-content;
+    width: 800px;
+    background-color: hsl(0, 0%, 100%);
+    position: absolute;
+    padding: 50px;
+}
+
+.left{
+    margin-left: 10px;
+    margin-top: 20px;
+    position: absolute;
+}
+
 #photo{
     margin-top: 40px;
     height: 180px;
 }
+
 .custom-mailto{
     text-decoration: none; /* Remove underline (optional) */
     border-bottom: 1px dotted hsl(0, 0%, 39%); /* Add a dotted border */
@@ -59,35 +84,35 @@ hr{
     border-left: 1px solid hsl(0, 0%, 85%);
     height: 20px;
     position: absolute;
-    left: 290px;
+    left: 310px;
     top: 17px;
-    margin-left: 20px;
-    margin-right: 20px;
   }
 .v3 {
     border-left: 1px solid hsl(0, 0%, 85%);
     height: 20px;
     position: absolute;
-    left: 395px;
+    left: 410px;
     top: 17px;
-    margin-left: 20px;
-    margin-right: 20px;
   }
   .v4 {
     border-left: 1px solid hsl(0, 0%, 85%);
     height: 20px;
     position: absolute;
-    left: 517px;
+    left: 543px;
     top: 17px;
-    margin-left: 20px;
-    margin-right: 20px;
   }
+.vl {
+    border-left: 1px solid hsl(0, 0%, 85%);
+    position: absolute;
+    height: 56px;
+    left: 212px;
+    top: 0px;
+}
 .section{
-    font-family: 'Inter', sans-serif;
+    font-family: Arial, sans-serif;
     font-size: 14px;
     margin-top: 11px;
-    margin-left: 20px;
-    margin-right: 40px;
+    margin-left: 10px;
 }
 
 hr{
@@ -96,13 +121,6 @@ hr{
     border: none;
 }
 
-.vl {
-    border-left: 1px solid hsl(0, 0%, 85%);
-    height: 56px;
-    position: absolute;
-    left: 15%;
-    top: 0;
-}
 
 #hr1 {
     margin-bottom: 0;
@@ -126,10 +144,163 @@ hr{
     text-decoration: none;
     color: #050505;
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 2px;
 }
 
 .nav a:hover {
     color: #7c7979;
 }
 
+h1{
+    font-family: Arial, sans-serif;
+    letter-spacing: 3px;
+    color: rgb(60, 60, 60);
+    font-size: 20px;
+    font-weight: 900;
+}
+
+p a {
+    text-decoration: none;
+    border-bottom: 1px dotted hsl(0, 0%, 39%); /* Add a dotted border */
+    color: hsl(0, 0%, 39%);
+}  
+
+p a:hover {
+    color: hsl(204, 50%, 47%);
+    border-bottom: none;
+}
+
+#about{
+    margin-top: 40px;
+    margin-left: 20px;
+    font-family: Arial, sans-serif;
+    color: rgb(58, 57, 57);
+    text-transform: uppercase;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+#intro{
+    margin-left: 20px;
+    font-family: Arial, sans-serif;
+    color: hsl(0, 0%, 39%);
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 25px;
+}
+
+.intro_container{
+    border: none;
+    width: 370px;
+}
+
+.more{
+    margin-top: 40px;
+    margin-left: 20px;
+}
+.more a {
+    height: max-content;
+    width: max-content;
+    padding: 15px;
+    border: solid hsl(0, 0%, 85%);
+    border-width: 1px;
+    font-family: Arial, sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    text-decoration: none;
+    color: rgb(58, 57, 57);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.more a:hover {
+    color: hsl(204, 50%, 47%);
+}
+
+
+.links{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    gap: 20px;
+}
+
+.links li {
+    margin-top: 40px;
+}
+
+.links a:hover {
+    color: hsl(204, 50%, 47%);
+}
+
+.banner {
+    position: relative;
+    text-align: center;
+    overflow: hidden;
+}
+
+/* Style for the text overlay */
+.banner .text {
+    margin-top: 40px;
+    width: 781px;
+    height: 60px;
+    position: absolute;
+    top: 0%; /* Adjust as needed to vertically center the text */
+    left: 50%; /* Adjust as needed to horizontally center the text */
+    transform: translate(-50%, -50%); /* Center the text */
+    background-color: rgba(234, 227, 227, 0.7); /* Background color with transparency */
+    color: hsl(0, 0%, 24%); /* Text color */
+    padding: 10px; /* Padding around the text */
+}
+
+.banner .text1 {
+    margin-top: 40px;
+    width: 781px;
+    height: 60px;
+    position: absolute;
+    top: 0%; /* Adjust as needed to vertically center the text */
+    left: 50%; /* Adjust as needed to horizontally center the text */
+    transform: translate(-50%, -50%); /* Center the text */
+    background-color: #b274e5fc;/* Background color with transparency */
+    color: hsl(0, 0%, 100%); /* Text color */
+    padding: 10px; /* Padding around the text */
+}
+.banner img{
+    margin-top: 79px;
+}
+
+.banner:hover  img{
+    transform: scale(1.03);
+}
+.text h2{
+    font-family: 'Julius Sans One', sans-serif;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.text1 h2{
+    font-family: 'Julius Sans One', sans-serif;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.education{
+    font-family: Arial, sans-serif; 
+}
+
+.education a{
+    text-decoration: none;
+    color: hsl(0, 0%, 39%);
+    font-size: 17px;
+}
+.education a:hover{
+    color: hsl(204, 50%, 47%);
+}
+.education p{
+    margin-top: 5px;
+    color: hsl(0, 0%, 39%);
+    font-size: 13px;
+    margin-bottom: 0px;
+}
