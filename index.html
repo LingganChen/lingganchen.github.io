@@ -392,7 +392,7 @@
     #projects { background: var(--bg); }
     .projects-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      grid-template-columns: repeat(3, 1fr);
       gap: 1.75rem;
     }
     .project-card {
@@ -403,11 +403,11 @@
       overflow: hidden;
       display: flex;
       flex-direction: column;
-      transition: transform 0.2s, box-shadow 0.2s;
+      transition: transform 0.25s, box-shadow 0.25s;
     }
     .project-card:hover {
       transform: translateY(-4px);
-      box-shadow: 0 12px 36px rgba(0,0,0,0.09);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.11);
     }
     .project-card.featured {
       grid-column: 1 / -1;
@@ -416,6 +416,8 @@
     .project-img-wrap {
       overflow: hidden;
       background: var(--bg);
+      display: block;
+      text-decoration: none;
     }
     .project-card:not(.featured) .project-img-wrap {
       height: 200px;
@@ -423,12 +425,17 @@
     .project-card.featured .project-img-wrap {
       width: 380px;
       flex-shrink: 0;
+      height: auto;
     }
     .project-img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       display: block;
+      transition: transform 0.4s ease;
+    }
+    .project-card:hover .project-img {
+      transform: scale(1.08);
     }
     .project-img-placeholder {
       width: 100%;
@@ -503,14 +510,10 @@
       flex-shrink: 0;
     }
     .project-gh-link:hover { text-decoration: underline; }
-    .star-badge {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.72rem;
-      color: var(--gold);
-      background: var(--gold-light);
-      border-radius: 50px;
-      padding: 0.2rem 0.6rem;
-      margin-left: 0.4rem;
+    @media (max-width: 900px) {
+      .projects-grid { grid-template-columns: 1fr; }
+      .project-card.featured { flex-direction: column; }
+      .project-card.featured .project-img-wrap { width: 100%; height: 200px; }
     }
 
     /* ── CONTACT ─────────────────────────────────────── */
@@ -818,7 +821,7 @@
 
     <!-- Dog Breed Web App -->
     <div class="project-card fade-in">
-      <div class="project-img-wrap">
+      <a class="project-img-wrap" href="https://github.com/LingganChen/dog_breed_WebApplication" target="_blank" rel="noopener">
         <img
           class="project-img"
           src="https://raw.githubusercontent.com/LingganChen/lingganchen.github.io/main/images/dog1.png"
@@ -826,7 +829,7 @@
           onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
         />
         <div class="project-img-placeholder" style="display:none; background: #e8f5ee;">🐕</div>
-      </div>
+      </a>
       <div class="project-body">
         <span class="project-tag">ML · Web App</span>
         <h3>Dog Breed Classification Web App</h3>
@@ -841,11 +844,14 @@
             <span class="project-tech">Flask</span>
             <span class="project-tech">InceptionV3</span>
           </div>
-          <a class="project-gh-link" href="https://github.com/LingganChen/dog_breed_WebApplication" target="_blank" rel="noopener">
-            GitHub ↗
-          </a>
+          <a class="project-gh-link" href="https://github.com/LingganChen/dog_breed_WebApplication" target="_blank" rel="noopener">GitHub ↗</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pizza Sales -->
     <div class="project-card fade-in">
-      <div class="project-img-wrap">
+      <a class="project-img-wrap" href="https://github.com/LingganChen/Pizza-Sales" target="_blank" rel="noopener">
         <img
           class="project-img"
           src="https://raw.githubusercontent.com/LingganChen/lingganchen.github.io/main/images/pizza1.png"
@@ -853,7 +859,7 @@
           onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
         />
         <div class="project-img-placeholder" style="display:none; background: #fff3e0;">🍕</div>
-      </div>
+      </a>
       <div class="project-body">
         <span class="project-tag gold">Power BI · SQL</span>
         <h3>Pizza Sales Analysis Dashboard</h3>
@@ -867,16 +873,14 @@
             <span class="project-tech">SQL</span>
             <span class="project-tech">Data Viz</span>
           </div>
-          <a class="project-gh-link" href="https://github.com/LingganChen/Pizza-Sales" target="_blank" rel="noopener">
-            GitHub ↗
-          </a>
+          <a class="project-gh-link" href="https://github.com/LingganChen/Pizza-Sales" target="_blank" rel="noopener">GitHub ↗</a>
         </div>
       </div>
     </div>
 
     <!-- Body Fat Analysis -->
     <div class="project-card fade-in">
-      <div class="project-img-wrap">
+      <a class="project-img-wrap" href="https://github.com/LingganChen/Body-Fat-Analysis" target="_blank" rel="noopener">
         <img
           class="project-img"
           src="https://raw.githubusercontent.com/LingganChen/lingganchen.github.io/main/images/bodyfat.png"
@@ -884,7 +888,7 @@
           onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
         />
         <div class="project-img-placeholder" style="display:none; background: #f5e8fb;">📈</div>
-      </div>
+      </a>
       <div class="project-body">
         <span class="project-tag">Stats · R / Python</span>
         <h3>Body Fat Statistical Analysis</h3>
