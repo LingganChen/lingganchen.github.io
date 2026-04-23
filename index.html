@@ -60,6 +60,11 @@
       transition: color 0.2s;
     }
     .nav-links a:hover { color: var(--accent); }
+    /* nav link jump chars inherit the link colour on jump */
+    .nav-links a .jump-char.jumping {
+      transform: translateY(-6px) scale(1.2);
+      color: var(--accent);
+    }
 
     /* ── HERO ────────────────────────────────────────── */
     #hero {
@@ -1340,7 +1345,7 @@ AVAILABILITY: Open to full-time roles in data analytics, data engineering, or ML
 
   /* ── Word jump on hover ── */
   const jumpTargets = document.querySelectorAll(
-    'h1, h2, h3, .hero-eyebrow, .section-label, .tl-company, .tl-role, nav .nav-logo'
+    'h1, h2, h3, .hero-eyebrow, .section-label, .tl-company, .tl-role, nav .nav-logo, .nav-links a'
   );
 
   jumpTargets.forEach(el => {
