@@ -948,3 +948,427 @@
 
 </body>
 </html>
+
+<!-- ── CHATBOT WIDGET ─────────────────────────────── -->
+<style>
+  #chat-toggle {
+    position: fixed;
+    bottom: 2rem; right: 2rem;
+    width: 56px; height: 56px;
+    border-radius: 50%;
+    background: var(--accent);
+    border: none;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 20px rgba(29,63,110,0.35);
+    transition: transform 0.2s, background 0.2s;
+    z-index: 1000;
+  }
+  #chat-toggle:hover { transform: scale(1.08); background: #152d52; }
+  #chat-toggle svg { width: 24px; height: 24px; fill: white; }
+  #chat-toggle .icon-close { display: none; }
+
+  #chat-window {
+    position: fixed;
+    bottom: 6rem; right: 2rem;
+    width: 360px;
+    max-height: 520px;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 8px 48px rgba(0,0,0,0.16);
+    display: flex; flex-direction: column;
+    overflow: hidden;
+    z-index: 999;
+    opacity: 0;
+    transform: translateY(16px) scale(0.97);
+    pointer-events: none;
+    transition: opacity 0.25s ease, transform 0.25s ease;
+  }
+  #chat-window.open {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    pointer-events: all;
+  }
+  .chat-header {
+    background: var(--accent);
+    padding: 1rem 1.25rem;
+    display: flex; align-items: center; gap: 0.75rem;
+    flex-shrink: 0;
+  }
+  .chat-avatar {
+    width: 36px; height: 36px; border-radius: 50%;
+    background: rgba(255,255,255,0.18);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem; flex-shrink: 0;
+  }
+  .chat-header-info { flex: 1; }
+  .chat-header-name { color: white; font-weight: 600; font-size: 0.95rem; }
+  .chat-header-sub { color: rgba(255,255,255,0.65); font-size: 0.75rem; font-family: 'DM Mono', monospace; }
+  .chat-online {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: #4ade80;
+    box-shadow: 0 0 0 2px rgba(74,222,128,0.3);
+  }
+  #chat-messages {
+    flex: 1; overflow-y: auto;
+    padding: 1rem; display: flex; flex-direction: column; gap: 0.75rem;
+    scroll-behavior: smooth;
+  }
+  #chat-messages::-webkit-scrollbar { width: 4px; }
+  #chat-messages::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+  .msg {
+    max-width: 82%; padding: 0.65rem 1rem; border-radius: 16px;
+    font-size: 0.88rem; line-height: 1.55;
+    animation: msg-in 0.2s ease;
+  }
+  @keyframes msg-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+  .msg.bot { background: var(--bg); color: var(--ink); border-bottom-left-radius: 4px; align-self: flex-start; }
+  .msg.user { background: var(--accent); color: white; border-bottom-right-radius: 4px; align-self: flex-end; }
+  .msg.typing { background: var(--bg); align-self: flex-start; padding: 0.75rem 1rem; }
+  .typing-dots { display: flex; gap: 4px; align-items: center; }
+  .typing-dots span {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--ink-faint); animation: dot-bounce 1.2s infinite;
+  }
+  .typing-dots span:nth-child(2) { animation-delay: 0.2s; }
+  .typing-dots span:nth-child(3) { animation-delay: 0.4s; }
+  @keyframes dot-bounce {
+    0%, 60%, 100% { transform: translateY(0); }
+    30% { transform: translateY(-5px); }
+  }
+  .chat-suggestions {
+    padding: 0 1rem 0.5rem; display: flex; flex-wrap: wrap; gap: 0.4rem; flex-shrink: 0;
+  }
+  .suggestion-btn {
+    background: var(--accent-light); color: var(--accent);
+    border: 1px solid rgba(29,63,110,0.15); border-radius: 50px;
+    padding: 0.35rem 0.85rem; font-size: 0.78rem;
+    font-family: 'Outfit', sans-serif; cursor: pointer;
+    transition: background 0.15s; white-space: nowrap;
+  }
+  .suggestion-btn:hover { background: #d0e4f7; }
+  .chat-input-row {
+    display: flex; align-items: center; gap: 0.5rem;
+    padding: 0.75rem 1rem; border-top: 1px solid var(--border); flex-shrink: 0;
+  }
+  #chat-input {
+    flex: 1; border: 1px solid var(--border); border-radius: 50px;
+    padding: 0.55rem 1rem; font-size: 0.88rem;
+    font-family: 'Outfit', sans-serif; outline: none;
+    background: var(--bg); color: var(--ink); transition: border-color 0.15s;
+  }
+  #chat-input:focus { border-color: var(--accent); background: white; }
+  #chat-send {
+    width: 36px; height: 36px; border-radius: 50%;
+    background: var(--accent); border: none; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.15s, transform 0.15s; flex-shrink: 0;
+  }
+  #chat-send:hover { background: #152d52; transform: scale(1.08); }
+  #chat-send svg { width: 16px; height: 16px; fill: white; }
+  #chat-send:disabled { background: var(--ink-faint); transform: none; cursor: default; }
+  .chat-disclaimer {
+    text-align: center; font-size: 0.7rem; color: var(--ink-faint);
+    padding: 0 1rem 0.6rem; font-family: 'DM Mono', monospace;
+  }
+  @media (max-width: 420px) {
+    #chat-window { width: calc(100vw - 2rem); right: 1rem; bottom: 5.5rem; }
+    #chat-toggle { bottom: 1.25rem; right: 1rem; }
+  }
+</style>
+
+<button id="chat-toggle" aria-label="Open chat">
+  <svg class="icon-chat" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 10H6v-2h12v2zm0-3H6V7h12v2z"/></svg>
+  <svg class="icon-close" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+</button>
+
+<div id="chat-window" role="dialog" aria-label="Chat with Linggan's assistant">
+  <div class="chat-header">
+    <div class="chat-avatar">💬</div>
+    <div class="chat-header-info">
+      <div class="chat-header-name">Ask about Linggan</div>
+      <div class="chat-header-sub">// AI assistant · powered by Claude</div>
+    </div>
+    <div class="chat-online" title="Online"></div>
+  </div>
+  <div id="chat-messages">
+    <div class="msg bot">Hi! I am Linggan's AI assistant. Ask me anything about her background, skills, projects, or availability!</div>
+  </div>
+  <div class="chat-suggestions" id="chat-suggestions">
+    <button class="suggestion-btn">What tools does she use?</button>
+    <button class="suggestion-btn">Tell me about her experience</button>
+    <button class="suggestion-btn">Is she open to work?</button>
+    <button class="suggestion-btn">What projects has she built?</button>
+  </div>
+  <div class="chat-input-row">
+    <input id="chat-input" type="text" placeholder="Ask something..." autocomplete="off" maxlength="300" />
+    <button id="chat-send" aria-label="Send">
+      <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+    </button>
+  </div>
+  <div class="chat-disclaimer">AI responses - always verify important details</div>
+</div>
+
+<script>
+(function() {
+  const SYSTEM_PROMPT = `You are a friendly, concise AI assistant on Linggan Chen's portfolio site. Answer visitor questions about Linggan using only the info below. Keep answers to 2-4 sentences. If something isn't covered, say you don't have that detail and suggest emailing linggan321@gmail.com.
+
+ABOUT: Junior Data Analyst, New York NY. Email: linggan321@gmail.com. LinkedIn: linkedin.com/in/lc1225. GitHub: github.com/LingganChen.
+
+EDUCATION: MS Data Analytics, Georgia Tech, GPA 3.75, Expected 2026. BA Applied Mathematics, University at Buffalo, 2022.
+
+EXPERIENCE:
+- HR Systems Analyst, ICBC NY (Oct 2025-Apr 2026): HRIS management, automated HR workflows cutting manual entry ~40%, onboarding/offboarding.
+- Data Analytics Co-op, Entegris (Jan-Jul 2025): Power BI dashboards for global meetings, integrated SAP/GCS/Snowflake/Excel cutting data retrieval ~60%, built automated travel approval system reducing admin effort 3x for 50+ users.
+- AI Trainer, Outlier (Jan-Aug 2024): Post-trained LLMs via RLHF on analytics tasks.
+
+PROJECTS:
+- Early Warning Models (Georgia Tech x Citiri capstone): ML models predicting high-risk project states from Salesforce time-series data. Python, Scikit-learn.
+- Dog Breed Classification Web App: Flask + TensorFlow InceptionV3 CNN, 93% accuracy, 70+ breeds. github.com/LingganChen/dog_breed_WebApplication
+- Pizza Sales Dashboard: Power BI, DAX, SQL. github.com/LingganChen/Pizza-Sales
+- Body Fat Statistical Analysis: Regression in R and Python. github.com/LingganChen/Body-Fat-Analysis
+
+SKILLS: Python, SQL, R, Scala, JS, C. Power BI, Tableau, Excel, SAP. Scikit-learn, Pandas, NumPy, TensorFlow, Keras, PySpark, Flask, D3.js. Google Cloud, Snowflake, AWS (certified), Azure (certified).
+
+AVAILABILITY: Open to full-time roles in data analytics, data engineering, or ML.`;
+
+  const toggle = document.getElementById('chat-toggle');
+  const chatWindow = document.getElementById('chat-window');
+  const messagesEl = document.getElementById('chat-messages');
+  const inputEl = document.getElementById('chat-input');
+  const sendBtn = document.getElementById('chat-send');
+  const suggestionsEl = document.getElementById('chat-suggestions');
+  const history = [];
+  let isOpen = false;
+  let isBusy = false;
+
+  toggle.addEventListener('click', () => {
+    isOpen = !isOpen;
+    chatWindow.classList.toggle('open', isOpen);
+    toggle.querySelector('.icon-chat').style.display = isOpen ? 'none' : 'block';
+    toggle.querySelector('.icon-close').style.display = isOpen ? 'block' : 'none';
+    if (isOpen) setTimeout(() => inputEl.focus(), 300);
+  });
+
+  suggestionsEl.querySelectorAll('.suggestion-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      sendMessage(btn.textContent.trim());
+      suggestionsEl.style.display = 'none';
+    });
+  });
+
+  inputEl.addEventListener('keydown', e => { if (e.key === 'Enter' && !isBusy) sendMessage(inputEl.value.trim()); });
+  sendBtn.addEventListener('click', () => { if (!isBusy) sendMessage(inputEl.value.trim()); });
+
+  function appendMsg(text, role) {
+    const div = document.createElement('div');
+    div.className = 'msg ' + role;
+    div.textContent = text;
+    messagesEl.appendChild(div);
+    messagesEl.scrollTop = messagesEl.scrollHeight;
+    return div;
+  }
+
+  function showTyping() {
+    const div = document.createElement('div');
+    div.className = 'msg typing';
+    div.innerHTML = '<div class="typing-dots"><span></span><span></span><span></span></div>';
+    messagesEl.appendChild(div);
+    messagesEl.scrollTop = messagesEl.scrollHeight;
+    return div;
+  }
+
+  async function sendMessage(text) {
+    if (!text || isBusy) return;
+    isBusy = true;
+    sendBtn.disabled = true;
+    inputEl.value = '';
+    suggestionsEl.style.display = 'none';
+
+    appendMsg(text, 'user');
+    history.push({ role: 'user', content: text });
+    const typingEl = showTyping();
+
+    try {
+      const res = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ messages: history, system: SYSTEM_PROMPT })
+      });
+      typingEl.remove();
+      if (!res.ok) throw new Error('API error ' + res.status);
+      const data = await res.json();
+      const reply = data.content?.[0]?.text || data.reply || 'Sorry, I could not get a response.';
+      appendMsg(reply, 'bot');
+      history.push({ role: 'assistant', content: reply });
+    } catch (err) {
+      typingEl.remove();
+      appendMsg('The chat backend is not set up yet. Please deploy the /api/chat proxy first — see README-chatbot.md for full instructions!', 'bot');
+    }
+
+    isBusy = false;
+    sendBtn.disabled = false;
+    inputEl.focus();
+  }
+})();
+</script>
+
+<!-- ── CURSOR VISUAL EFFECTS ─────────────────────────── -->
+<canvas id="fx-canvas" style="position:fixed;top:0;left:0;pointer-events:none;z-index:9999;"></canvas>
+<style>
+  body { cursor: none; }
+  .cursor-dot {
+    position: fixed;
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: #1d3f6e;
+    pointer-events: none;
+    z-index: 10000;
+    transform: translate(-50%, -50%);
+    transition: transform 0.08s ease, background 0.2s;
+    mix-blend-mode: multiply;
+  }
+  .cursor-ring {
+    position: fixed;
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    border: 2px solid rgba(29,63,110,0.45);
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: width 0.2s, height 0.2s, border-color 0.2s;
+  }
+  .jump-char {
+    display: inline-block;
+    transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1), color 0.3s;
+    will-change: transform;
+  }
+  .jump-char.jumping {
+    transform: translateY(-10px) scale(1.18);
+    color: #1d3f6e;
+  }
+  /* restore cursor on inputs/buttons */
+  input, button, a, select, textarea { cursor: none; }
+</style>
+
+<div class="cursor-dot" id="cursor-dot"></div>
+<div class="cursor-ring" id="cursor-ring"></div>
+
+<script>
+(function() {
+  /* ── Custom cursor ── */
+  const dot  = document.getElementById('cursor-dot');
+  const ring = document.getElementById('cursor-ring');
+  let mx = -200, my = -200, rx = -200, ry = -200;
+
+  document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+
+  // Smooth ring lag
+  (function animRing() {
+    rx += (mx - rx) * 0.12;
+    ry += (my - ry) * 0.12;
+    dot.style.left  = mx + 'px'; dot.style.top  = my + 'px';
+    ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+    requestAnimationFrame(animRing);
+  })();
+
+  // Grow ring on clickable hover
+  document.querySelectorAll('a, button, .project-card, .skill-pill, .badge, .btn').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      ring.style.width = '58px'; ring.style.height = '58px';
+      ring.style.borderColor = 'rgba(15,110,86,0.55)';
+      dot.style.transform = 'translate(-50%,-50%) scale(1.6)';
+      dot.style.background = '#0f6e56';
+    });
+    el.addEventListener('mouseleave', () => {
+      ring.style.width = '36px'; ring.style.height = '36px';
+      ring.style.borderColor = 'rgba(29,63,110,0.45)';
+      dot.style.transform = 'translate(-50%,-50%) scale(1)';
+      dot.style.background = '#1d3f6e';
+    });
+  });
+
+  /* ── Wave trail on canvas ── */
+  const canvas = document.getElementById('fx-canvas');
+  const ctx = canvas.getContext('2d');
+  let W, H;
+  function resize() { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
+  resize();
+  window.addEventListener('resize', resize);
+
+  const particles = [];
+  const COLORS = ['rgba(29,63,110,', 'rgba(15,110,86,', 'rgba(154,111,47,'];
+
+  document.addEventListener('mousemove', e => {
+    for (let i = 0; i < 4; i++) {
+      const angle = Math.random() * Math.PI * 2;
+      const speed = Math.random() * 1.8 + 0.4;
+      const col   = COLORS[Math.floor(Math.random() * COLORS.length)];
+      particles.push({
+        x: e.clientX, y: e.clientY,
+        vx: Math.cos(angle) * speed * 0.6,
+        vy: Math.sin(angle) * speed * 0.6 - 0.8,
+        radius: Math.random() * 5 + 2,
+        alpha: 0.65,
+        decay: Math.random() * 0.018 + 0.012,
+        color: col,
+        wave: Math.random() * Math.PI * 2,
+        waveAmp: Math.random() * 1.2,
+        waveSpeed: Math.random() * 0.08 + 0.03,
+      });
+    }
+  });
+
+  function animParticles() {
+    ctx.clearRect(0, 0, W, H);
+    for (let i = particles.length - 1; i >= 0; i--) {
+      const p = particles[i];
+      p.wave += p.waveSpeed;
+      p.x += p.vx + Math.sin(p.wave) * p.waveAmp;
+      p.y += p.vy;
+      p.vy += 0.04; // gentle gravity
+      p.alpha -= p.decay;
+      if (p.alpha <= 0) { particles.splice(i, 1); continue; }
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.radius * p.alpha, 0, Math.PI * 2);
+      ctx.fillStyle = p.color + p.alpha + ')';
+      ctx.fill();
+    }
+    requestAnimationFrame(animParticles);
+  }
+  animParticles();
+
+  /* ── Word jump on hover ── */
+  const jumpTargets = document.querySelectorAll(
+    'h1, h2, h3, .hero-eyebrow, .section-label, .tl-company, .tl-role, nav .nav-logo'
+  );
+
+  jumpTargets.forEach(el => {
+    // Wrap each character in a span, preserving spaces
+    el.innerHTML = el.innerHTML.replace(/(<[^>]+>)|([^<])/g, (m, tag, ch) => {
+      if (tag) return tag;
+      if (ch === ' ') return '<span class="jump-char" style="display:inline-block;width:0.28em;"> </span>';
+      return `<span class="jump-char">${ch}</span>`;
+    });
+
+    const chars = el.querySelectorAll('.jump-char');
+
+    el.addEventListener('mousemove', e => {
+      const rect = el.getBoundingClientRect();
+      const cx = e.clientX - rect.left;
+      chars.forEach(span => {
+        const sr = span.getBoundingClientRect();
+        const sc = sr.left + sr.width / 2 - rect.left;
+        const dist = Math.abs(cx - sc);
+        const threshold = 60;
+        if (dist < threshold) {
+          span.classList.add('jumping');
+          // stagger the settle by distance
+          setTimeout(() => span.classList.remove('jumping'), 350 + dist * 2);
+        }
+      });
+    });
+  });
+
+})();
+</script>
