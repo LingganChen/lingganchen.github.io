@@ -1097,13 +1097,13 @@
     <div class="chat-online" title="Online"></div>
   </div>
   <div id="chat-messages">
-    <div class="msg bot">Hi! I am Linggan's AI assistant. Ask me anything about her background, skills, projects, or availability!</div>
+    <div class="msg bot">Hi! I'm Linggan's assistant. Ask me anything about his background, skills, or availability 👇</div>
   </div>
   <div class="chat-suggestions" id="chat-suggestions">
-    <button class="suggestion-btn">What tools does she use?</button>
-    <button class="suggestion-btn">Tell me about her experience</button>
-    <button class="suggestion-btn">Is she open to work?</button>
-    <button class="suggestion-btn">What projects has she built?</button>
+    <button class="suggestion-btn">What tools does he use?</button>
+    <button class="suggestion-btn">Tell me about his experience</button>
+    <button class="suggestion-btn">Is he open to work?</button>
+    <button class="suggestion-btn">More about Linggan</button>
   </div>
   <div class="chat-input-row">
     <input id="chat-input" type="text" placeholder="Ask something..." autocomplete="off" maxlength="300" />
@@ -1116,41 +1116,91 @@
 
 <script>
 (function() {
-  const SYSTEM_PROMPT = `You are a friendly, concise AI assistant on Linggan Chen's portfolio site. Answer visitor questions about Linggan using only the info below. Keep answers to 2-4 sentences. If something isn't covered, say you don't have that detail and suggest emailing linggan321@gmail.com.
 
-ABOUT: Junior Data Analyst, New York NY. Email: linggan321@gmail.com. LinkedIn: linkedin.com/in/lc1225. GitHub: github.com/LingganChen.
+  /* ── Rule-based FAQ knowledge base ── */
+  const FAQ = [
+    {
+      patterns: ['tool','skill','tech','language','software','python','sql','power bi','tableau','stack','use'],
+      question: 'What tools does he use?',
+      answer: "Linggan's core stack includes Python, SQL, and R for coding, Power BI and Tableau for dashboards, and Scikit-learn, Pandas, and TensorFlow for machine learning. On the cloud side, he's certified in both AWS and Azure, and works with Google Cloud and Snowflake regularly. He also has experience with SAP, PySpark, Flask, and D3.js."
+    },
+    {
+      patterns: ['experience','job','role','company','icbc','entegris','outlier','background','career'],
+      question: 'Tell me about his experience',
+      answer: "Linggan has held 3 professional roles. Most recently he was an HR Systems Analyst at ICBC New York, where he automated HR workflows and cut manual entry time by ~40%. Before that he completed a Data Analytics Co-op at Entegris, building Power BI dashboards that reduced data retrieval time by 60% for global quality engineering teams. He also spent 8 months as an AI Trainer at Outlier, post-training LLMs via RLHF on data analytics tasks."
+    },
+    {
+      patterns: ['open','hire','available','job','looking','work','opportunit','full.?time','recruit','position'],
+      question: 'Is he open to work?',
+      answer: "Yes! Linggan is actively looking for full-time roles in data analytics, data engineering, or machine learning. He is open to onsite, hybrid, or fully remote positions, and is willing to relocate anywhere in the U.S. Feel free to reach him directly at linggan321@gmail.com — he'd love to connect!"
+    },
+    {
+      patterns: ['more about','hobby','hobbies','interest','personal','linggan','stock','market','league','anime','pokemon','game','energy','infrastructure','outside work','fun','free time'],
+      question: 'More about Linggan',
+      answer: "Beyond data and code, Linggan is a pretty well-rounded person! He's deeply interested in the stock market — particularly AI Infrastructure and Energy sectors, which he follows closely and invests in. When he's not analyzing charts, you'll find him on the Rift in League of Legends (his go-to game). His favourite anime is Pokémon. He brings the same curiosity and analytical mindset to his personal interests as he does to his professional work."
+    },
+    {
+      patterns: ['education','degree','school','university','georgia','buffalo','gpa','grad','study','major','ms','master'],
+      question: 'What is his educational background?',
+      answer: "Linggan is completing an MS in Data Analytics at Georgia Institute of Technology with a 3.75 GPA (expected 2026). He holds a BA in Applied Mathematics from the University at Buffalo, graduated in 2022. His math foundation is what drives his strength in statistical modelling and ML."
+    },
+    {
+      patterns: ['contact','email','linkedin','github','reach','connect','find','get in touch'],
+      question: 'How can I contact him?',
+      answer: "You can reach Linggan through any of these channels:\n📧 linggan321@gmail.com\n🔗 linkedin.com/in/lc1225\n💻 github.com/LingganChen\nHe typically responds within a day or two!"
+    },
+    {
+      patterns: ['certif','aws','azure','cloud','credential'],
+      question: 'Does he have any certifications?',
+      answer: "Yes — Linggan holds two cloud certifications: AWS Certified Cloud Practitioner and Microsoft Azure Data Fundamentals (DP-900). Both reflect his capability working with cloud data platforms like Snowflake, Google Cloud, and Azure in real production environments."
+    },
+    {
+      patterns: ['location','where','city','based','new york','ny','remote'],
+      question: 'Where is he based?',
+      answer: "I am based in New York, NY."
+    },
+    {
+      patterns: ['entegris','dashboard','kpi','power bi','quality'],
+      question: 'Tell me about his work at Entegris',
+      answer: "At Entegris, Linggan built Power BI dashboards for the Materials Solutions division that became the central reference for global bi-weekly alignment meetings. He integrated data from SAP, Google Cloud, Snowflake, and Excel — cutting data retrieval time for quality engineers by ~60%. He also built an automated travel approval system from scratch that reduced admin effort 3× across 50+ users."
+    },
+    {
+      patterns: ['icbc','bank','hr','hris','onboard','automat'],
+      question: 'Tell me about his work at ICBC',
+      answer: "At ICBC's New York Branch, Linggan managed HRIS systems and handled end-to-end onboarding and offboarding processes. He designed fillable PDF forms integrated with Excel transformation logic that cut manual data entry by ~40% and significantly reduced error rates. He also handled vendor bill reconciliation and cross-system coordination."
+    },
+    {
+      patterns: ['ml','machine learning','ai','model','rlhf','scikit','tensorflow','neural'],
+      question: 'What is his ML experience?',
+      answer: "Linggan has solid hands-on ML experience. He built a CNN image classifier with TensorFlow/Keras achieving 93% accuracy, developed time-series ML models for project risk prediction using Scikit-learn, and spent 8 months post-training LLMs at Outlier using RLHF. His academic work at Georgia Tech deepens this further with coursework in analytics and modelling."
+    },
+    {
+      patterns: ['hello','hi','hey','who are you','what can you'],
+      question: 'Who are you?',
+      answer: "Hi there! I'm Linggan's portfolio assistant. I can tell you about his skills, work experience, projects, education, certifications, and how to get in touch. What would you like to know?"
+    },
+  ];
 
-EDUCATION: MS Data Analytics, Georgia Tech, GPA 3.75, Expected 2026. BA Applied Mathematics, University at Buffalo, 2022.
+  function getReply(text) {
+    const q = text.toLowerCase();
+    for (const item of FAQ) {
+      if (item.patterns.some(p => new RegExp(p).test(q))) return item.answer;
+    }
+    return "That's a great question! I don't have a specific answer for that one. For anything detailed, feel free to reach Linggan directly at linggan321@gmail.com — he's very responsive and happy to chat!";
+  }
 
-EXPERIENCE:
-- HR Systems Analyst, ICBC NY (Oct 2025-Apr 2026): HRIS management, automated HR workflows cutting manual entry ~40%, onboarding/offboarding.
-- Data Analytics Co-op, Entegris (Jan-Jul 2025): Power BI dashboards for global meetings, integrated SAP/GCS/Snowflake/Excel cutting data retrieval ~60%, built automated travel approval system reducing admin effort 3x for 50+ users.
-- AI Trainer, Outlier (Jan-Aug 2024): Post-trained LLMs via RLHF on analytics tasks.
-
-PROJECTS:
-- Early Warning Models (Georgia Tech x Citiri capstone): ML models predicting high-risk project states from Salesforce time-series data. Python, Scikit-learn.
-- Dog Breed Classification Web App: Flask + TensorFlow InceptionV3 CNN, 93% accuracy, 70+ breeds. github.com/LingganChen/dog_breed_WebApplication
-- Pizza Sales Dashboard: Power BI, DAX, SQL. github.com/LingganChen/Pizza-Sales
-- Body Fat Statistical Analysis: Regression in R and Python. github.com/LingganChen/Body-Fat-Analysis
-
-SKILLS: Python, SQL, R, Scala, JS, C. Power BI, Tableau, Excel, SAP. Scikit-learn, Pandas, NumPy, TensorFlow, Keras, PySpark, Flask, D3.js. Google Cloud, Snowflake, AWS (certified), Azure (certified).
-
-AVAILABILITY: Open to full-time roles in data analytics, data engineering, or ML.`;
-
-  const toggle = document.getElementById('chat-toggle');
-  const chatWindow = document.getElementById('chat-window');
-  const messagesEl = document.getElementById('chat-messages');
-  const inputEl = document.getElementById('chat-input');
-  const sendBtn = document.getElementById('chat-send');
+  const toggle      = document.getElementById('chat-toggle');
+  const chatWindow  = document.getElementById('chat-window');
+  const messagesEl  = document.getElementById('chat-messages');
+  const inputEl     = document.getElementById('chat-input');
+  const sendBtn     = document.getElementById('chat-send');
   const suggestionsEl = document.getElementById('chat-suggestions');
-  const history = [];
   let isOpen = false;
-  let isBusy = false;
 
   toggle.addEventListener('click', () => {
     isOpen = !isOpen;
     chatWindow.classList.toggle('open', isOpen);
-    toggle.querySelector('.icon-chat').style.display = isOpen ? 'none' : 'block';
+    toggle.querySelector('.icon-chat').style.display  = isOpen ? 'none'  : 'block';
     toggle.querySelector('.icon-close').style.display = isOpen ? 'block' : 'none';
     if (isOpen) setTimeout(() => inputEl.focus(), 300);
   });
@@ -1162,16 +1212,16 @@ AVAILABILITY: Open to full-time roles in data analytics, data engineering, or ML
     });
   });
 
-  inputEl.addEventListener('keydown', e => { if (e.key === 'Enter' && !isBusy) sendMessage(inputEl.value.trim()); });
-  sendBtn.addEventListener('click', () => { if (!isBusy) sendMessage(inputEl.value.trim()); });
+  inputEl.addEventListener('keydown', e => { if (e.key === 'Enter') sendMessage(inputEl.value.trim()); });
+  sendBtn.addEventListener('click', () => sendMessage(inputEl.value.trim()));
 
   function appendMsg(text, role) {
     const div = document.createElement('div');
     div.className = 'msg ' + role;
+    div.style.whiteSpace = 'pre-line';
     div.textContent = text;
     messagesEl.appendChild(div);
     messagesEl.scrollTop = messagesEl.scrollHeight;
-    return div;
   }
 
   function showTyping() {
@@ -1183,38 +1233,22 @@ AVAILABILITY: Open to full-time roles in data analytics, data engineering, or ML
     return div;
   }
 
-  async function sendMessage(text) {
-    if (!text || isBusy) return;
-    isBusy = true;
-    sendBtn.disabled = true;
+  function sendMessage(text) {
+    if (!text.trim()) return;
+    appendMsg(text, 'user');
     inputEl.value = '';
     suggestionsEl.style.display = 'none';
+    sendBtn.disabled = true;
 
-    appendMsg(text, 'user');
-    history.push({ role: 'user', content: text });
     const typingEl = showTyping();
-
-    try {
-      const res = await fetch('/api/chat', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ messages: history, system: SYSTEM_PROMPT })
-      });
+    setTimeout(() => {
       typingEl.remove();
-      if (!res.ok) throw new Error('API error ' + res.status);
-      const data = await res.json();
-      const reply = data.content?.[0]?.text || data.reply || 'Sorry, I could not get a response.';
-      appendMsg(reply, 'bot');
-      history.push({ role: 'assistant', content: reply });
-    } catch (err) {
-      typingEl.remove();
-      appendMsg('The chat backend is not set up yet. Please deploy the /api/chat proxy first — see README-chatbot.md for full instructions!', 'bot');
-    }
-
-    isBusy = false;
-    sendBtn.disabled = false;
-    inputEl.focus();
+      appendMsg(getReply(text), 'bot');
+      sendBtn.disabled = false;
+      inputEl.focus();
+    }, 420 + Math.random() * 280);
   }
+
 })();
 </script>
 
