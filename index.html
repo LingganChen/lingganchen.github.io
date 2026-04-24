@@ -78,7 +78,7 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
-      padding: 5rem 4rem 5rem 5rem;
+      padding: 3rem 4rem 3rem 5rem;
     }
     .hero-eyebrow {
       font-family: 'DM Mono', monospace;
@@ -167,7 +167,7 @@
     }
     h2 {
       font-family: 'DM Serif Display', serif;
-      font-size: clamp(2rem, 3.5vw, 3.2rem);
+      font-size: clamp(1.6rem, 2.8vw, 2.6rem);
       line-height: 1.1;
       margin-bottom: 3rem;
     }
@@ -238,7 +238,7 @@
     .timeline-item::before {
       content: '';
       position: absolute;
-      left: -2.05rem; top: 0.4rem;
+      left: calc(-2.5rem + 3.5px); top: 0.35rem;
       width: 12px; height: 12px;
       border-radius: 50%;
       background: var(--accent);
@@ -571,7 +571,7 @@
     <p class="hero-eyebrow">// data analyst · new york, ny</p>
     <h1>Turning data<br/>into <em>decisions</em></h1>
     <p class="hero-desc">
-      Junior Data Analyst with hands-on experience building real-time dashboards, automating workflows, and applying machine learning to solve real business problems.
+      Data Analyst with hands-on experience designing Power BI dashboards, building data pipelines, automating workflows and delivering actionable insights. Proficient in SQL, Python, R, and platforms including Snowflake, SAP, and Google Cloud.
     </p>
     <div class="hero-cta">
       <a class="btn btn-primary" href="#experience">View My Work</a>
@@ -589,13 +589,13 @@
     <p class="section-label">// about me</p>
     <h2>Data-driven, impact-focused</h2>
     <p>
-      I'm a <strong>Junior Data Analyst</strong> currently pursuing my Master's in Data Analytics at Georgia Tech. I love building systems that make data accessible — whether that's a polished Power BI dashboard or an automated workflow that cuts hours of manual work.
+      I'm a <strong>Data Analyst</strong> currently completing my Master's in Data Analytics at Georgia Tech (GPA 3.75). I specialise in designing Power BI dashboards, building data pipelines, and delivering actionable insights across cross-functional teams.
     </p>
     <p>
-      My background blends a strong <strong>mathematical foundation</strong> (Applied Mathematics, University at Buffalo) with applied experience across enterprise environments — from ICBC's HR systems to Entegris's global manufacturing quality data.
+      My background blends a strong <strong>mathematical foundation</strong> (Applied Mathematics, University at Buffalo) with applied experience across enterprise environments — from ICBC's HR analytics to Entegris's global material quality reporting.
     </p>
     <p>
-      I'm especially energized by problems at the intersection of <strong>AI, analytics, and automation</strong>. I've helped post-train LLMs, built early warning ML models, and designed systems from scratch that 50+ users depend on daily.
+      I'm especially energised by problems at the intersection of <strong>data, automation, and AI</strong>. I've post-trained LLMs, built end-to-end approval systems, and designed dashboards from scratch that 50+ users depend on daily. Proficient in SQL, Python, and R for statistical analysis and machine learning tasks. In my spare time, I also love <strong>vibe coding</strong> — building things just for the fun of it.
     </p>
     <div class="badges">
       <span class="badge">Python</span>
@@ -630,25 +630,24 @@
 
     <div class="timeline-item fade-in">
       <p class="tl-company">Industrial and Commercial Bank of China — New York Branch</p>
-      <p class="tl-role">HR Systems Analyst, Contractor (via Social Capital Resources)</p>
+      <p class="tl-role">HR Analyst, Contractor (via Social Capital Resources)</p>
       <p class="tl-period">Oct 2025 – Apr 2026 · New York, NY</p>
       <ul class="tl-bullets">
-        <li>Managed HRIS systems and datasets; delivered ad-hoc analyses, custom reports, and cross-team support.</li>
-        <li>Automated HR workflows by designing fillable PDF forms integrated with Excel transformation logic — <span class="tl-highlight">cut manual entry time by ~40%</span> and reduced error rates significantly.</li>
-        <li>Conducted vendor bill reconciliation and facilitated payment processes.</li>
-        <li>Ran end-to-end onboarding/offboarding across multiple systems including ID creation, termination, and document generation.</li>
+        <li>Managed datasets and delivered ad-hoc data analysis and custom reports supporting HR, Accounting, Administration, Internal Audit, IT, and Risk Management departments.</li>
+        <li>Extracted, transformed, and integrated data from enterprise systems to build interactive dashboards tracking headcount, cost, attendance, and compliance metrics — enabling data-driven decision-making.</li>
+        <li>Redesigned data collection techniques and automated workflows, <span class="tl-highlight">cutting manual data entry time by ~60%</span> and significantly reducing downstream error rates.</li>
+        <li>Collaborated closely with department heads and team leads to ensure data accuracy across multiple systems and reports.</li>
       </ul>
     </div>
 
     <div class="timeline-item fade-in">
       <p class="tl-company">Entegris</p>
-      <p class="tl-role">Data Analytics Co-op – Materials Quality</p>
+      <p class="tl-role">Data Analytics Co-op – Material Quality Engineering</p>
       <p class="tl-period">Jan 2025 – Jul 2025 · Aurora, IL</p>
       <ul class="tl-bullets">
-        <li>Designed and optimized Power BI dashboards for the Material Solutions division — central reference for bi-weekly global alignment meetings.</li>
-        <li>Integrated and cleaned raw material data from SAP, Google Cloud, Snowflake, and Excel; <span class="tl-highlight">reduced data retrieval time for quality engineers by ~60%</span>.</li>
-        <li>Collaborated with global teams to standardize KPIs and enhance cross-region forecasting accuracy.</li>
-        <li>Built an automated travel approval system with real-time email routing from scratch; <span class="tl-highlight">reduced administrative effort by 3×</span> across 50+ users.</li>
+        <li>Designed and optimised Power BI dashboards (data models, SQL queries, DAX measures) for the Material Quality Engineering team — central reference for bi-weekly goal alignment meetings.</li>
+        <li>Integrated and cleaned raw material data from SAP, Google Cloud (GCP), Snowflake, and Excel; <span class="tl-highlight">reduced data retrieval time for engineers by 50%</span> and standardised KPIs to enhance cross-region forecasting accuracy.</li>
+        <li>Built an end-to-end automated travel approval system with real-time email routing, <span class="tl-highlight">cutting administrative effort by 3× and consolidating 120+ submissions across 50+ users</span>.</li>
       </ul>
     </div>
 
@@ -657,9 +656,8 @@
       <p class="tl-role">AI Trainer</p>
       <p class="tl-period">Jan 2024 – Aug 2024 · Remote</p>
       <ul class="tl-bullets">
-        <li>Post-trained AI agents like ChatGPT on data analytics tasks using Reinforcement Learning with Human Feedback (RLHF).</li>
-        <li>Created targeted prompts to expand model capabilities in data cleaning, exploratory analysis, and visualizations.</li>
-        <li>Iteratively refined model outputs across reasoning and coding steps, reducing hallucinations and improving reliability for real-world analytics use cases.</li>
+        <li>Post-trained AI agents on data analytics tasks using Reinforcement Learning from Human Feedback (RLHF), focusing on data cleaning, EDA, and visualisation workflows.</li>
+        <li>Crafted targeted prompts to benchmark and expand model capabilities; iterated on model outputs to reduce hallucination and improve reliability for real-world analytics use cases.</li>
       </ul>
     </div>
 
@@ -1359,86 +1357,68 @@
 <script>
 (function() {
 
-  /* ── Rule-based FAQ knowledge base ── */
-  const FAQ = [
-    {
-      patterns: ['tool','skill','tech','language','software','python','sql','power bi','tableau','stack','use'],
-      question: 'What tools does he use?',
-      answer: "Linggan's core stack includes Python, SQL, and R for coding, Power BI and Tableau for dashboards, and Scikit-learn, Pandas, and TensorFlow for machine learning. On the cloud side, he's certified in both AWS and Azure, and works with Google Cloud and Snowflake regularly. He also has experience with SAP, PySpark, Flask, and D3.js."
-    },
-    {
-      patterns: ['experience','job','role','company','icbc','entegris','outlier','background','career'],
-      question: 'Tell me about his experience',
-      answer: "Linggan has held 3 professional roles. Most recently he was an HR Systems Analyst at ICBC New York, where he automated HR workflows and cut manual entry time by ~40%. Before that he completed a Data Analytics Co-op at Entegris, building Power BI dashboards that reduced data retrieval time by 60% for global quality engineering teams. He also spent 8 months as an AI Trainer at Outlier, post-training LLMs via RLHF on data analytics tasks."
-    },
-    {
-      patterns: ['open','hire','available','job','looking','work','opportunit','full.?time','recruit','position'],
-      question: 'Is he open to work?',
-      answer: "Yes! Linggan is actively looking for full-time roles in data analytics, data engineering, or machine learning. He is open to onsite, hybrid, or fully remote positions, and is willing to relocate anywhere in the U.S. Feel free to reach him directly at linggan321@gmail.com — he'd love to connect!"
-    },
-    {
-      patterns: ['more about','hobby','hobbies','interest','personal','linggan','stock','market','league','anime','pokemon','game','energy','infrastructure','outside work','fun','free time'],
-      question: 'More about Linggan',
-      answer: "Beyond data and code, Linggan is a pretty well-rounded person! He's deeply interested in the stock market — particularly AI Infrastructure and Energy sectors, which he follows closely and invests in. When he's not analyzing charts, you'll find him on the Rift in League of Legends (his go-to game). His favourite anime is Pokémon. He brings the same curiosity and analytical mindset to his personal interests as he does to his professional work."
-    },
-    {
-      patterns: ['education','degree','school','university','georgia','buffalo','gpa','grad','study','major','ms','master'],
-      question: 'What is his educational background?',
-      answer: "Linggan is completing an MS in Data Analytics at Georgia Institute of Technology with a 3.75 GPA (expected 2026). He holds a BA in Applied Mathematics from the University at Buffalo, graduated in 2022. His math foundation is what drives his strength in statistical modelling and ML."
-    },
-    {
-      patterns: ['contact','email','linkedin','github','reach','connect','find','get in touch'],
-      question: 'How can I contact him?',
-      answer: "You can reach Linggan through any of these channels:\n📧 linggan321@gmail.com\n🔗 linkedin.com/in/lc1225\n💻 github.com/LingganChen\nHe typically responds within a day or two!"
-    },
-    {
-      patterns: ['certif','aws','azure','cloud','credential'],
-      question: 'Does he have any certifications?',
-      answer: "Yes — Linggan holds two cloud certifications: AWS Certified Cloud Practitioner and Microsoft Azure Data Fundamentals (DP-900). Both reflect his capability working with cloud data platforms like Snowflake, Google Cloud, and Azure in real production environments."
-    },
-    {
-      patterns: ['location','where','city','based','new york','ny','remote'],
-      question: 'Where is he based?',
-      answer: "I am based in New York, NY."
-    },
-    {
-      patterns: ['entegris','dashboard','kpi','power bi','quality'],
-      question: 'Tell me about his work at Entegris',
-      answer: "At Entegris, Linggan built Power BI dashboards for the Materials Solutions division that became the central reference for global bi-weekly alignment meetings. He integrated data from SAP, Google Cloud, Snowflake, and Excel — cutting data retrieval time for quality engineers by ~60%. He also built an automated travel approval system from scratch that reduced admin effort 3× across 50+ users."
-    },
-    {
-      patterns: ['icbc','bank','hr','hris','onboard','automat'],
-      question: 'Tell me about his work at ICBC',
-      answer: "At ICBC's New York Branch, Linggan managed HRIS systems and handled end-to-end onboarding and offboarding processes. He designed fillable PDF forms integrated with Excel transformation logic that cut manual data entry by ~40% and significantly reduced error rates. He also handled vendor bill reconciliation and cross-system coordination."
-    },
-    {
-      patterns: ['ml','machine learning','ai','model','rlhf','scikit','tensorflow','neural'],
-      question: 'What is his ML experience?',
-      answer: "Linggan has solid hands-on ML experience. He built a CNN image classifier with TensorFlow/Keras achieving 93% accuracy, developed time-series ML models for project risk prediction using Scikit-learn, and spent 8 months post-training LLMs at Outlier using RLHF. His academic work at Georgia Tech deepens this further with coursework in analytics and modelling."
-    },
-    {
-      patterns: ['hello','hi','hey','who are you','what can you'],
-      question: 'Who are you?',
-      answer: "Hi there! I'm Linggan's portfolio assistant. I can tell you about his skills, work experience, projects, education, certifications, and how to get in touch. What would you like to know?"
-    },
+  /* ── Chip definitions ── */
+  const CHIPS = [
+    { label: 'What tools does he use?'      },
+    { label: 'Tell me about his experience' },
+    { label: 'Is he open to work?'          },
+    { label: 'More about Linggan'           },
   ];
+
+  /* ── Answers ── */
+  const CHIP_ANSWERS = {
+    'What tools does he use?':      "Linggan's core stack includes Python, SQL, and R for coding, Power BI and Tableau for dashboards, and Scikit-learn, Pandas, and TensorFlow for machine learning. On the cloud side, he's certified in both AWS and Azure, and works with Google Cloud and Snowflake regularly. He also has experience with SAP, PySpark, Flask, and D3.js.",
+    'Tell me about his experience':  "Linggan has held 3 professional roles. Most recently he was an HR Analyst at ICBC New York, where he built interactive dashboards and automated workflows cutting manual data entry by ~60%. Before that he completed a Data Analytics Co-op at Entegris, designing Power BI dashboards that reduced data retrieval time by 50% for quality engineers, and built an automated travel approval system handling 120+ submissions across 50+ users. He also spent 8 months as an AI Trainer at Outlier, post-training LLMs via RLHF on data analytics tasks.",
+    'Is he open to work?':           "Yes! Linggan is actively looking for full-time roles in data analytics, data engineering, or machine learning. He is open to onsite, hybrid, or fully remote positions, and is willing to relocate anywhere in the U.S. Feel free to reach him directly at linggan321@gmail.com — he'd love to connect!",
+    'More about Linggan':            "Beyond data and code, Linggan is a pretty well-rounded person! He's deeply interested in the stock market — particularly AI Infrastructure and Energy sectors, which he follows closely and invests in. When he's not analyzing charts, you'll find him on the Rift in League of Legends (his go-to game). His favourite anime is Pokémon. He brings the same curiosity and analytical mindset to his personal interests as he does to his professional work.",
+  };
+
+  const GREETING_PATTERNS = ['hello','hi','hey','who are you','what can'];
+  const NOT_SET_UP = "This feature has not been set up yet. Please check back later!";
 
   function getReply(text) {
     const q = text.toLowerCase();
-    for (const item of FAQ) {
-      if (item.patterns.some(p => new RegExp(p).test(q))) return item.answer;
+    // Check if it matches a chip label exactly
+    if (CHIP_ANSWERS[text]) return CHIP_ANSWERS[text];
+    // Greeting fallback
+    if (GREETING_PATTERNS.some(p => q.includes(p))) {
+      return "Hi there! I'm Linggan's portfolio assistant. Feel free to tap one of the options below to learn more about him!";
     }
-    return "That's a great question! I don't have a specific answer for that one. For anything detailed, feel free to reach Linggan directly at linggan321@gmail.com — he's very responsive and happy to chat!";
+    return NOT_SET_UP;
   }
 
-  const toggle      = document.getElementById('chat-toggle');
-  const chatWindow  = document.getElementById('chat-window');
-  const messagesEl  = document.getElementById('chat-messages');
-  const inputEl     = document.getElementById('chat-input');
-  const sendBtn     = document.getElementById('chat-send');
+  /* ── DOM refs ── */
+  const toggle        = document.getElementById('chat-toggle');
+  const chatWindow    = document.getElementById('chat-window');
+  const messagesEl    = document.getElementById('chat-messages');
+  const inputEl       = document.getElementById('chat-input');
+  const sendBtn       = document.getElementById('chat-send');
   const suggestionsEl = document.getElementById('chat-suggestions');
   let isOpen = false;
 
+  /* ── Track which chips have been used ── */
+  const usedChips = new Set();
+
+  /* ── Build / refresh chip buttons ── */
+  function renderChips() {
+    suggestionsEl.innerHTML = '';
+    const remaining = CHIPS.filter(c => !usedChips.has(c.label));
+    if (remaining.length === 0) { suggestionsEl.style.display = 'none'; return; }
+    suggestionsEl.style.display = 'flex';
+    remaining.forEach(c => {
+      const btn = document.createElement('button');
+      btn.className = 'suggestion-btn';
+      btn.textContent = c.label;
+      btn.addEventListener('click', () => {
+        usedChips.add(c.label);
+        sendMessage(c.label);
+        renderChips();
+      });
+      suggestionsEl.appendChild(btn);
+    });
+  }
+
+  /* ── Toggle open/close ── */
   toggle.addEventListener('click', () => {
     isOpen = !isOpen;
     chatWindow.classList.toggle('open', isOpen);
@@ -1447,16 +1427,18 @@
     if (isOpen) setTimeout(() => inputEl.focus(), 300);
   });
 
-  suggestionsEl.querySelectorAll('.suggestion-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      sendMessage(btn.textContent.trim());
-      suggestionsEl.style.display = 'none';
-    });
-  });
+  /* ── Text input ── */
+  inputEl.addEventListener('keydown', e => { if (e.key === 'Enter') sendFromInput(); });
+  sendBtn.addEventListener('click', sendFromInput);
 
-  inputEl.addEventListener('keydown', e => { if (e.key === 'Enter') sendMessage(inputEl.value.trim()); });
-  sendBtn.addEventListener('click', () => sendMessage(inputEl.value.trim()));
+  function sendFromInput() {
+    const text = inputEl.value.trim();
+    if (!text) return;
+    inputEl.value = '';
+    sendMessage(text);
+  }
 
+  /* ── Core send ── */
   function appendMsg(text, role) {
     const div = document.createElement('div');
     div.className = 'msg ' + role;
@@ -1478,8 +1460,6 @@
   function sendMessage(text) {
     if (!text.trim()) return;
     appendMsg(text, 'user');
-    inputEl.value = '';
-    suggestionsEl.style.display = 'none';
     sendBtn.disabled = true;
 
     const typingEl = showTyping();
@@ -1488,8 +1468,11 @@
       appendMsg(getReply(text), 'bot');
       sendBtn.disabled = false;
       inputEl.focus();
-    }, 420 + Math.random() * 280);
+    }, 380 + Math.random() * 250);
   }
+
+  /* ── Init chips ── */
+  renderChips();
 
 })();
 </script>
