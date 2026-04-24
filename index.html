@@ -288,7 +288,7 @@
     }
 
     /* ── SKILLS ──────────────────────────────────────── */
-    #skills { background: white; }
+    #skills { background: var(--bg); }
     .skills-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -298,6 +298,8 @@
       background: var(--bg);
       border-radius: var(--radius);
       padding: 1.75rem;
+      border: 1.5px solid rgba(29,63,110,0.15);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
     }
     .skill-group-title {
       font-family: 'DM Mono', monospace;
@@ -354,7 +356,7 @@
     .cert-icon.az { background: #0078d4; color: white; }
 
     /* ── PROJECT ─────────────────────────────────────── */
-    #projects { background: var(--bg); }
+    #projects { background: white; }
     .projects-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -557,8 +559,8 @@
   <ul class="nav-links">
     <li><a href="#about">About</a></li>
     <li><a href="#experience">Experience</a></li>
-    <li><a href="#skills">Skills</a></li>
     <li><a href="#projects">Projects</a></li>
+    <li><a href="#skills">Skills</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
 </nav>
@@ -596,13 +598,13 @@
       I'm especially energized by problems at the intersection of <strong>AI, analytics, and automation</strong>. I've helped post-train LLMs, built early warning ML models, and designed systems from scratch that 50+ users depend on daily.
     </p>
     <div class="badges">
-      <span class="badge badge-blue">Python</span>
-      <span class="badge badge-teal">Power BI</span>
-      <span class="badge badge-blue">SQL</span>
-      <span class="badge badge-teal">Machine Learning</span>
-      <span class="badge badge-gold">AWS</span>
-      <span class="badge badge-blue">Scikit-learn</span>
-      <span class="badge badge-gold">Azure</span>
+      <span class="badge">Python</span>
+      <span class="badge">Power BI</span>
+      <span class="badge">SQL</span>
+      <span class="badge">Machine Learning</span>
+      <span class="badge">R</span>
+      <span class="badge">Statistical Analysis</span>
+      <span class="badge">Vibe Coding</span>
     </div>
   </div>
   <div class="edu-cards fade-in">
@@ -661,74 +663,6 @@
       </ul>
     </div>
 
-  </div>
-</section>
-
-<!-- SKILLS -->
-<section id="skills">
-  <p class="section-label">// skills</p>
-  <h2>Tools of the trade</h2>
-  <div class="skills-grid">
-    <div class="skill-group fade-in">
-      <p class="skill-group-title">Programming</p>
-      <div class="skill-pills">
-        <span class="skill-pill highlight">Python</span>
-        <span class="skill-pill highlight">SQL</span>
-        <span class="skill-pill">R</span>
-        <span class="skill-pill">Scala</span>
-        <span class="skill-pill">JavaScript</span>
-        <span class="skill-pill">HTML/CSS</span>
-        <span class="skill-pill">C</span>
-      </div>
-    </div>
-    <div class="skill-group fade-in">
-      <p class="skill-group-title">Data & BI Tools</p>
-      <div class="skill-pills">
-        <span class="skill-pill highlight">Power BI</span>
-        <span class="skill-pill highlight">Tableau</span>
-        <span class="skill-pill">Excel</span>
-        <span class="skill-pill">SAP</span>
-        <span class="skill-pill">SAS</span>
-        <span class="skill-pill">Power App</span>
-        <span class="skill-pill">OpenRefine</span>
-      </div>
-    </div>
-    <div class="skill-group fade-in">
-      <p class="skill-group-title">ML / Libraries</p>
-      <div class="skill-pills">
-        <span class="skill-pill highlight">Scikit-learn</span>
-        <span class="skill-pill highlight">Pandas</span>
-        <span class="skill-pill">NumPy</span>
-        <span class="skill-pill">TensorFlow</span>
-        <span class="skill-pill">Keras</span>
-        <span class="skill-pill">PySpark</span>
-        <span class="skill-pill">Flask</span>
-        <span class="skill-pill">D3.js</span>
-        <span class="skill-pill">ggplot</span>
-      </div>
-    </div>
-    <div class="skill-group fade-in">
-      <p class="skill-group-title">Cloud & Platforms</p>
-      <div class="skill-pills">
-        <span class="skill-pill highlight">Google Cloud</span>
-        <span class="skill-pill highlight">Snowflake</span>
-        <span class="skill-pill">AWS</span>
-        <span class="skill-pill">Azure</span>
-        <span class="skill-pill">Jupyter</span>
-        <span class="skill-pill">RStudio</span>
-      </div>
-    </div>
-  </div>
-
-  <div class="cert-row">
-    <div class="cert-chip">
-      <div class="cert-icon aws">AWS</div>
-      AWS Certified Cloud Practitioner
-    </div>
-    <div class="cert-chip">
-      <div class="cert-icon az">Az</div>
-      Microsoft Azure Data Fundamentals
-    </div>
   </div>
 </section>
 
@@ -855,6 +789,74 @@
   </div>
 </section>
 
+<!-- SKILLS -->
+<section id="skills">
+  <p class="section-label">// skills</p>
+  <h2>Tools of the trade</h2>
+  <div class="skills-grid">
+    <div class="skill-group fade-in">
+      <p class="skill-group-title">Programming</p>
+      <div class="skill-pills">
+        <span class="skill-pill highlight">Python</span>
+        <span class="skill-pill highlight">SQL</span>
+        <span class="skill-pill">R</span>
+        <span class="skill-pill">Scala</span>
+        <span class="skill-pill">JavaScript</span>
+        <span class="skill-pill">HTML/CSS</span>
+        <span class="skill-pill">C</span>
+      </div>
+    </div>
+    <div class="skill-group fade-in">
+      <p class="skill-group-title">Data & BI Tools</p>
+      <div class="skill-pills">
+        <span class="skill-pill highlight">Power BI</span>
+        <span class="skill-pill highlight">Tableau</span>
+        <span class="skill-pill">Excel</span>
+        <span class="skill-pill">SAP</span>
+        <span class="skill-pill">SAS</span>
+        <span class="skill-pill">Power App</span>
+        <span class="skill-pill">OpenRefine</span>
+      </div>
+    </div>
+    <div class="skill-group fade-in">
+      <p class="skill-group-title">ML / Libraries</p>
+      <div class="skill-pills">
+        <span class="skill-pill highlight">Scikit-learn</span>
+        <span class="skill-pill highlight">Pandas</span>
+        <span class="skill-pill">NumPy</span>
+        <span class="skill-pill">TensorFlow</span>
+        <span class="skill-pill">Keras</span>
+        <span class="skill-pill">PySpark</span>
+        <span class="skill-pill">Flask</span>
+        <span class="skill-pill">D3.js</span>
+        <span class="skill-pill">ggplot</span>
+      </div>
+    </div>
+    <div class="skill-group fade-in">
+      <p class="skill-group-title">Cloud & Platforms</p>
+      <div class="skill-pills">
+        <span class="skill-pill highlight">Google Cloud</span>
+        <span class="skill-pill highlight">Snowflake</span>
+        <span class="skill-pill">AWS</span>
+        <span class="skill-pill">Azure</span>
+        <span class="skill-pill">Jupyter</span>
+        <span class="skill-pill">RStudio</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="cert-row">
+    <div class="cert-chip">
+      <div class="cert-icon aws">AWS</div>
+      AWS Certified Cloud Practitioner
+    </div>
+    <div class="cert-chip">
+      <div class="cert-icon az">Az</div>
+      Microsoft Azure Data Fundamentals
+    </div>
+  </div>
+</section>
+
 <!-- CONTACT -->
 <section id="contact">
   <p class="section-label">// let's connect</p>
@@ -888,6 +890,16 @@
   }, { threshold: 0.12 });
 
   document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  /* ── Randomise About badge colours ── */
+  const badgeClasses = ['badge-blue', 'badge-teal', 'badge-gold'];
+  document.querySelectorAll('.badges .badge').forEach(badge => {
+    // Pick a random class, avoid repeating the previous one
+    let cls;
+    do { cls = badgeClasses[Math.floor(Math.random() * badgeClasses.length)]; }
+    while (badge.previousElementSibling && badge.previousElementSibling.classList.contains(cls));
+    badge.classList.add(cls);
+  });
 </script>
 
 <script>
